@@ -65,8 +65,8 @@ namespace YYHEggEgg.Utils
             var exitcode = await InnerRun(invokeInfo, max_rerun);
             if (exitcode != 0 && invokeInfo.AutoTerminateReason != null)
             {
-                Log.Erro($"{invokeInfo.AutoTerminateReason} Exit code is {autoTerminateCode}. ", "OuterInvoke");
-                Log.Info("Press any key to exit...");
+                Log.Erro($"{invokeInfo.AutoTerminateReason} 退出代码： {autoTerminateCode}. ", "OuterInvoke");
+                Log.Info("按任意键退出···");
                 Console.ReadLine();
                 Environment.Exit(autoTerminateCode);
             }
@@ -93,16 +93,16 @@ namespace YYHEggEgg.Utils
             if (rtn[0] != 0 && invokeInfo1.AutoTerminateReason != null)
             {
                 exiting = true;
-                Log.Erro($"{invokeInfo1.AutoTerminateReason} Exit code is {autoTerminateCode}. ", "OuterInvoke");
+                Log.Erro($"{invokeInfo1.AutoTerminateReason} 退出代码： {autoTerminateCode}. ", "OuterInvoke");
             }
             if (rtn[1] != 0 && invokeInfo2.AutoTerminateReason != null)
             {
                 exiting = true;
-                Log.Erro($"{invokeInfo2.AutoTerminateReason} Exit code is {autoTerminateCode}. ", "OuterInvoke");
+                Log.Erro($"{invokeInfo2.AutoTerminateReason} 退出代码：{autoTerminateCode}. ", "OuterInvoke");
             }
             if (exiting)
             {
-                Log.Info("Press any key to exit...");
+                Log.Info("按任意键退出···");
                 Console.ReadLine();
                 Environment.Exit(autoTerminateCode);
             }
@@ -131,21 +131,21 @@ namespace YYHEggEgg.Utils
             if (rtn[0] != 0 && invokeInfo1.AutoTerminateReason != null)
             {
                 exiting = true;
-                Log.Erro($"{invokeInfo1.AutoTerminateReason} Exit code is {autoTerminateCode}. ", "OuterInvoke");
+                Log.Erro($"{invokeInfo1.AutoTerminateReason} 退出代码： {autoTerminateCode}. ", "OuterInvoke");
             }
             if (rtn[1] != 0 && invokeInfo2.AutoTerminateReason != null)
             {
                 exiting = true;
-                Log.Erro($"{invokeInfo2.AutoTerminateReason} Exit code is {autoTerminateCode}. ", "OuterInvoke");
+                Log.Erro($"{invokeInfo2.AutoTerminateReason} 退出代码： {autoTerminateCode}. ", "OuterInvoke");
             }
             if (rtn[2] != 0 && invokeInfo3.AutoTerminateReason != null)
             {
                 exiting = true;
-                Log.Erro($"{invokeInfo3.AutoTerminateReason} Exit code is {autoTerminateCode}. ", "OuterInvoke");
+                Log.Erro($"{invokeInfo3.AutoTerminateReason} 退出代码： {autoTerminateCode}. ", "OuterInvoke");
             }
             if (exiting)
             {
-                Log.Info("Press any key to exit...");
+                Log.Info("按任意键退出···");
                 Console.ReadLine();
                 Environment.Exit(autoTerminateCode);
             }
@@ -179,7 +179,7 @@ namespace YYHEggEgg.Utils
             }
             if (exiting)
             {
-                Log.Info("Press any key to exit...");
+                Log.Info("按任意键退出···");
                 Console.ReadLine();
                 Environment.Exit(autoTerminateCode);
             }
@@ -208,12 +208,12 @@ namespace YYHEggEgg.Utils
                 if (rtn[i] != 0 && invokeInfos[i].AutoTerminateReason != null)
                 {
                     exiting = true;
-                    Log.Erro($"{invokeInfos[i].AutoTerminateReason} Exit code is {autoTerminateCode}. ", "OuterInvoke");
+                    Log.Erro($"{invokeInfos[i].AutoTerminateReason} 退出代码： {autoTerminateCode}. ", "OuterInvoke");
                 }
             }
             if (exiting)
             {
-                Log.Info("Press any key to exit...");
+                Log.Info("按任意键退出···");
                 Console.ReadLine();
                 Environment.Exit(autoTerminateCode);
             }
@@ -242,12 +242,12 @@ namespace YYHEggEgg.Utils
                 if (rtn[i] != 0 && invokeInfos[i].AutoTerminateReason != null)
                 {
                     exiting = true;
-                    Log.Erro($"{invokeInfos[i].AutoTerminateReason} Exit code is {autoTerminateCode}. ", "OuterInvoke");
+                    Log.Erro($"{invokeInfos[i].AutoTerminateReason} 退出代码： {autoTerminateCode}. ", "OuterInvoke");
                 }
             }
             if (exiting)
             {
-                Log.Info("Press any key to exit...");
+                Log.Info("按任意键退出···");
                 Console.ReadLine();
                 Environment.Exit(autoTerminateCode);
             }
@@ -276,12 +276,12 @@ namespace YYHEggEgg.Utils
                 if (rtn[i] != 0 && invokeInfos[i].AutoTerminateReason != null)
                 {
                     exiting = true;
-                    Log.Erro($"{invokeInfos[i].AutoTerminateReason} Exit code is {autoTerminateCode}. ", "OuterInvoke");
+                    Log.Erro($"{invokeInfos[i].AutoTerminateReason} 退出代码： {autoTerminateCode}. ", "OuterInvoke");
                 }
             }
             if (exiting)
             {
-                Log.Info("Press any key to exit...");
+                Log.Info("按任意键退出···");
                 Console.ReadLine();
                 Environment.Exit(autoTerminateCode);
             }

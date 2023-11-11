@@ -104,7 +104,7 @@ namespace HappyGenyuanImsactUpdate
             catch (Exception ex)
             {
                 Log.Warn($"----------------------------\n{ex}\n----------------------------", nameof(TryDisposeTempFiles));
-                Log.Warn($"Failed to delete program temp files. You may delete directory {_tmpdir} by yourself.", nameof(TryDisposeTempFiles));
+                Log.Warn($"无法自动删除临时文件， 你可以自己删除： {_tmpdir} 文件夹。", nameof(TryDisposeTempFiles));
             }
         }
 
@@ -113,9 +113,9 @@ namespace HappyGenyuanImsactUpdate
             if (Environment.CurrentDirectory.StartsWith(
                 $"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}/Local/Temp"))
             {
-                Log.Warn("You may be running the program without extracting, and that will make" +
-                    "logs lost since closing the zip file. ");
-                Log.Warn("Consider extracting the program in case you meet some problem updating.");
+                Log.Warn("你可能在没有解压的情况下运行程序，这将使" +
+                    "日志文件在关闭程序后丢失！");
+                Log.Warn("请考虑解压程序，以防在更新时遇到问题。");
             }
         }
 

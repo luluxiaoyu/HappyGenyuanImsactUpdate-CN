@@ -31,7 +31,7 @@ namespace HappyGenyuanImsactUpdate
                 {
 #if DEBUG
                     Log.Info(
-                        $"The lauguage of this audio package is {file.Name.Substring(6, file.Name.Length - 18)}.", nameof(GetPkgVersion));
+                        $"语言包： {file.Name.Substring(6, file.Name.Length - 18)}.", nameof(GetPkgVersion));
 #endif                        
                     rtns.Add(file.FullName);
                 }
@@ -91,7 +91,7 @@ namespace HappyGenyuanImsactUpdate
 
                         if (!File.Exists(checkPathstd))
                         {
-                            Log.Warn(ReportFileError(checkPathstd, "The file does not exist"), nameof(CheckByPkgVersion));
+                            Log.Warn(ReportFileError(checkPathstd, "文件不存在"), nameof(CheckByPkgVersion));
                             checkPassed = false;
                             continue;
                         }

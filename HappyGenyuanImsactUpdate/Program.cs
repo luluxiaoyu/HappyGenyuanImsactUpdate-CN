@@ -20,7 +20,7 @@ namespace HappyGenyuanImsactUpdate
                     debug_LogWriter_AutoFlush: true));
 
             string? version = Assembly.GetExecutingAssembly().GetName().Version?.ToString(3);
-            Log.Info($"Welcome to the update program! (v{version ?? "<unknown>"})");
+            Log.Info($"欢迎来到更新程序！ (v{version ?? "<unknown>"})");
             Helper.CheckForRunningInZipFile();
 
             //Not working path, but the path where the program located
@@ -45,7 +45,7 @@ namespace HappyGenyuanImsactUpdate
             #region Console Usage
             if (args.Length == 0)
             {
-                Log.Info("You can also use command line args to execute this program.", "CommandLine");
+                Log.Info("你也可以通过命令行方式使用本程序！", "CommandLine");
 
                 datadir = GetDataPath();
 
@@ -57,12 +57,12 @@ namespace HappyGenyuanImsactUpdate
 
                 if (!PkgVersionCheck(datadir, checkAfter))
                 {
-                    Log.Erro("Sorry, the update process was exited because the original files aren't correct.", nameof(PkgVersionCheck));
-                    Log.Erro("Press any key to continue. ", nameof(PkgVersionCheck));
+                    Log.Erro("很抱歉，由于原始文件不正确，更新程序已退出。", nameof(PkgVersionCheck));
+                    Log.Erro("按任意键继续···", nameof(PkgVersionCheck));
                     Console.Read();
                     Environment.Exit(1);
                 }
-                else Log.Info("Congratulations! Check passed!", nameof(PkgVersionCheck));
+                else Log.Info("文件验证通过！", nameof(PkgVersionCheck));
 
                 t = GetZipCount();
 
@@ -71,7 +71,7 @@ namespace HappyGenyuanImsactUpdate
                 for (int i = 0; i < t; i++)
                 {
                     Log.Info("");
-                    if (i > 0) Log.Info("Now you should paste the path of another zip file.", nameof(GetUpdatePakPath));
+                    if (i > 0) Log.Info("现在，请粘贴另一个zip文件的路径。", nameof(GetUpdatePakPath));
                     zips.Add(GetUpdatePakPath(datadir.FullName));
                 }
             }
@@ -178,7 +178,7 @@ namespace HappyGenyuanImsactUpdate
                 {
                     ProcessPath = path7z,
                     CmdLine = $"x \"{zipfile.FullName}\" -o\"{datadir.FullName}\" -aoa -bsp1",
-                    StartingNotice = "Unzip the package...",
+                    StartingNotice = "解压文件···",
                     AutoTerminateReason = $"7z decompress package: {zipfile.FullName} to {datadir.FullName} failed."
                 }, 3750);
 
@@ -195,15 +195,15 @@ namespace HappyGenyuanImsactUpdate
             // It is a proper change because only the newest pkg_version is valid.
             if (!UpdateCheck(datadir, checkAfter))
             {
-                Helper.ShowErrorBalloonTip(5000, "Update failed.",
-                    "Sorry, the update process was exited because files aren't correct.");
+                Helper.ShowErrorBalloonTip(5000, "更新失败！",
+                    "很抱歉，由于文件不正确，更新程序已退出。");
 
-                Log.Erro("Sorry, the update process was exited because the original files aren't correct.", nameof(PkgVersionCheck));
-                Log.Erro("Press any key to continue. ", nameof(PkgVersionCheck));
+                Log.Erro("很抱歉，由于原始文件不正确，更新程序已退出。", nameof(PkgVersionCheck));
+                Log.Erro("按任意键继续···", nameof(PkgVersionCheck));
                 Console.Read();
                 Environment.Exit(1);
             }
-            else Log.Info("Congratulations! Check passed!", nameof(PkgVersionCheck));
+            else Log.Info("文件验证完成！", nameof(PkgVersionCheck));
 
             foreach (var pkgversionpath in pkgversionpaths)
             {
@@ -215,7 +215,7 @@ namespace HappyGenyuanImsactUpdate
                 File.Move(backuppath, pkgversionpath);
                 if (checkAfter == CheckMode.None)
                 {
-                    Log.Warn($"{pkgver.Name} hasn't checked and may not fit the current version.");
+                    Log.Warn($"{pkgver.Name} 尚未检查，可能不适合当前版本。");
                     continue;
                 }
 
@@ -223,7 +223,7 @@ namespace HappyGenyuanImsactUpdate
 
                 if (!checkres)
                 {
-                    Log.Warn($"{pkgver.Name} isn't fit with current version any more. You may fix the error or remove the file under the game data directory.");
+                    Log.Warn($"{pkgver.Name} 不再适合当前版本。您可以修复错误或删除游戏数据目录下的文件。");
                 }
             }
 
@@ -238,24 +238,24 @@ namespace HappyGenyuanImsactUpdate
                 if (File.Exists(deletedfile))
                     File.Delete(deletedfile);
 
-            Helper.ShowInformationBalloonTip(5000, "Update process is done!", "Enjoy the new version!");
+            Helper.ShowInformationBalloonTip(5000, "更新完成！", "享受新版本吧~");
 
             DeleteZipFilesReq(zips, ifdeletepackage);
             Log.Info("-------------------------");
 
             Helper.TryDisposeTempFiles();
 
-            Log.Info("Update process is done!");
+            Log.Info("更新完成！");
 
             if (args.Length == 0)
             {
-                Log.Info("Press Enter to continue.");
+                Log.Info("按Enter继续");
 
                 Console.ReadLine();
             }
             else
             {
-                Log.Info("The program will exit in 3 seconds.");
+                Log.Info("程序在3秒后退出···");
                 await Task.Delay(3000);
             }
 
@@ -275,15 +275,15 @@ namespace HappyGenyuanImsactUpdate
 
         private static void Usage()
         {
-            Log.Info("CommandLine usage: \n" +
+            Log.Info("命令行使用方法: \n" +
                 "happygenyuanimsactupdate \n" +
-                "-patchAt <game_directory> \n" +
-                "-checkmode <0/1/2> (0 -> none, 1 -> basic check (file size), 2 -> full check (size + md5))\n" +
-                "-zip_count <count> <zipPath1...n> \n" +
+                "-patchAt <游戏路径> \n" +
+                "-checkmode <0/1/2> (0 -> 不验证, 1 -> 快速验证 (验证文件大小), 2 -> 完整验证 (文件大小 + md5))\n" +
+                "-zip_count <zip更新包数量> <zip路径1...n> \n" +
                 "[--config_change_guidance <true/false>] (change the showing version of official launcher, default is true)\n" +
                 "[--delete_update_packages] (delete update packages, won't delete if the param isn't given)" +
                 "\n\n" +
-                "e.g. happygenyuanimsactupdate -patchAt \"D:\\Game\" -checkmode 1 -zip_count 2 \"game_1_hdiff.zip\" \"zh-cn_hdiff.zip\" " +
+                "示例： happygenyuanimsactupdate -patchAt \"D:\\Game\" -checkmode 1 -zip_count 2 \"game_1_hdiff.zip\" \"zh-cn_hdiff.zip\" " +
                 "--config_change_guidance false\n", "CommandLine");
         }
 
@@ -298,11 +298,11 @@ namespace HappyGenyuanImsactUpdate
         {
             if (!File.Exists($"{datadir}\\config.ini")) return;
 
-            Helper.ShowInformationBalloonTip(5000, "The update program needs you decision.",
-                "You need to apply change to the Launcher config in the console.");
+            Helper.ShowInformationBalloonTip(5000, "更新程序需要你做出决定。",
+                "你可以在这里更新你的官方启动器信息。");
 
-            Log.Info("We have noticed that you're probably using an official launcher.", nameof(ConfigChange));
-            Log.Info("To make it display the correct version, we would make some change on related file.", nameof(ConfigChange));
+            Log.Info("我们注意到你正在使用官方启动器。", nameof(ConfigChange));
+            Log.Info("为了让官方启动器正常识别，需要修改配置文件的游戏版本。", nameof(ConfigChange));
 
             string verstart = ConfigIni.FindStartVersion(zipstart.Name);
             string verto = ConfigIni.FindToVersion(zipend.Name);
@@ -311,7 +311,7 @@ namespace HappyGenyuanImsactUpdate
 
             if (verstart == string.Empty || verto == string.Empty)
             {
-                Log.Warn("We can't infer the version you're updating to.", nameof(ConfigChange));
+                Log.Warn("我们不确定你正在更新的版本。", nameof(ConfigChange));
                 CustomChangeVersion(configfile);
             }
             else
@@ -328,14 +328,14 @@ namespace HappyGenyuanImsactUpdate
         /// <param name="verto">the update version</param>
         public static void GetConfigUpdateOptions(FileInfo configfile, string verstart, string verto)
         {
-            Log.Info($"We infer that you're updating from {verstart} to {verto} .", nameof(ConfigChange));
-            Log.Info("Is it true? Type 'y' to apply the change " +
-                "or type the correct version you're updating to.", nameof(ConfigChange));
-            Log.Info("If you don't use a launcher or don't want to change the display version, type 'n' to refuse it.", nameof(ConfigChange));
+            Log.Info($"我们注意到你正在从 {verstart} 更新到 {verto} 。", nameof(ConfigChange));
+            Log.Info("对吗？输入'y'已确认 。" +
+                "如果不对，请输入正确的版本号。", nameof(ConfigChange));
+            Log.Info("如果你不用官方启动器，或者不想更改，请输入'n'。", nameof(ConfigChange));
             string? s = Console.ReadLine();
             if (s == null || s == string.Empty)
             {
-                Log.Warn("Invaild version!", nameof(ConfigChange));
+                Log.Warn("错误的版本。", nameof(ConfigChange));
                 CustomChangeVersion(configfile);
             }
             else if (s.ToLower() == "y")
@@ -345,7 +345,7 @@ namespace HappyGenyuanImsactUpdate
                 ConfigIni.ApplyConfigChange(configfile, s);
             else
             {
-                Log.Warn("Invaild version!", nameof(ConfigChange));
+                Log.Warn("错误的版本。", nameof(ConfigChange));
                 CustomChangeVersion(configfile);
             }
         }
@@ -356,13 +356,13 @@ namespace HappyGenyuanImsactUpdate
         /// <param name="configfile">config.ini</param>
         public static void CustomChangeVersion(FileInfo configfile)
         {
-            Log.Info("Please type the version you're updating to, and we'll apply the change:", nameof(CustomChangeVersion));
-            Log.Info("If you don't use a launcher or don't want to change the display version, type 'n' to refuse it.", nameof(CustomChangeVersion));
+            Log.Info("请输入你正在更新到的版本：", nameof(CustomChangeVersion));
+            Log.Info("如果你不用官方启动器，或者不想更改，请输入'n'。", nameof(CustomChangeVersion));
 
             string? s = Console.ReadLine();
             if (s == null || s == string.Empty)
             {
-                Log.Warn("Invaild version!", nameof(CustomChangeVersion));
+                Log.Warn("错误的版本。", nameof(CustomChangeVersion));
                 CustomChangeVersion(configfile);
             }
             else if (s.ToLower() == "n") return;
@@ -370,7 +370,7 @@ namespace HappyGenyuanImsactUpdate
                 ConfigIni.ApplyConfigChange(configfile, s);
             else
             {
-                Log.Warn("Invaild version!", nameof(CustomChangeVersion));
+                Log.Warn("错误的版本。", nameof(CustomChangeVersion));
                 CustomChangeVersion(configfile);
             }
         }
@@ -379,19 +379,19 @@ namespace HappyGenyuanImsactUpdate
         #region Package Verify
         public static bool UpdateCheck(DirectoryInfo datadir, CheckMode checkAfter)
         {
-            Log.Info("Start verifying...\n", nameof(UpdateCheck));
+            Log.Info("开始执行文件验证···\n", nameof(UpdateCheck));
 
             if (checkAfter == CheckMode.None)
             {
-                Log.Info("Due to user's demanding, no checks are performed.", nameof(UpdateCheck));
+                Log.Info("由于用户的设定，不执行任何验证~", nameof(UpdateCheck));
                 return true;
             }
 
             var pkgversionPaths = UpCheck.GetPkgVersion(datadir);
             if (pkgversionPaths == null || pkgversionPaths.Count == 0)
             {
-                Log.Info("Can't find version file. No checks are performed.", nameof(UpdateCheck));
-                Log.Info("If you can find it, please tell to us: " +
+                Log.Info("找不到版本文件，不执行文件验证。", nameof(UpdateCheck));
+                Log.Info("如果你可以找到，请反馈： " +
                     "https://github.com/YYHEggEgg/HappyGenyuanImsactUpdate/issues", nameof(UpdateCheck));
                 return true;
             }
@@ -404,15 +404,15 @@ namespace HappyGenyuanImsactUpdate
         {
             if (checkAfter == CheckMode.None)
             {
-                Log.Info("No checks are performed.", nameof(PkgVersionCheck));
+                Log.Info("没有验证被执行！", nameof(PkgVersionCheck));
                 return true;
             }
 
             var pkgversionPaths = UpCheck.GetPkgVersion(datadir);
             if (!pkgversionPaths.Contains($"{datadir}\\pkg_version"))
             {
-                Log.Warn($"Can't find pkg_version file. No checks are performed.", nameof(PkgVersionCheck));
-                Log.Info($"It's normal if you're attempting to update Honkai: March 7th.", nameof(PkgVersionCheck));
+                Log.Warn($"找不到pkg_version文件，将不执行文件检查。", nameof(PkgVersionCheck));
+                Log.Info($"如果你正在更新《崩坏：星穹铁道》这是正常的。", nameof(PkgVersionCheck));
                 return true;
             }
 
@@ -439,7 +439,7 @@ namespace HappyGenyuanImsactUpdate
                 if (!pkgversionPaths.Contains($"{datadir}\\Audio_{audioname}_pkg_version"))
                 {
                     // ver <= 1.4
-                    Log.Warn($"Not checking Audio: {audioname} for Audio_{audioname}_pkg_version does not exist.", nameof(PkgVersionCheck));
+                    Log.Warn($"不检查语音包: {audioname} 因为 Audio_{audioname}_pkg_version文件不存在。", nameof(PkgVersionCheck));
                 }
             }
 
@@ -452,19 +452,19 @@ namespace HappyGenyuanImsactUpdate
         //The same goes for the following methods. 
         static DirectoryInfo GetDataPath()
         {
-            Log.Info("Paste the full path of game directory here. " +
-                "It's usually ended with \"Genyuan Imsact game\".", nameof(GetDataPath));
+            Log.Info("请输入完整游戏路径：（原神/崩铁） \n" +
+                "通常，它的文件夹叫做：Genshin Impact Game（或者/Star Rail/Game）。", nameof(GetDataPath));
             string? dataPath = RemoveDoubleQuotes(Console.ReadLine());
             if (dataPath == null || dataPath == string.Empty)
             {
-                Log.Warn("Invaild game path!", nameof(GetDataPath));
+                Log.Warn("错误的游戏文件夹。", nameof(GetDataPath));
                 return GetDataPath();
             }
 
             DirectoryInfo datadir = new(dataPath);
             if (!Helper.AnyCertainGameExists(datadir))
             {
-                Log.Warn("Invaild game path!", nameof(GetDataPath));
+                Log.Warn("错误的游戏文件夹。", nameof(GetDataPath));
                 return GetDataPath();
             }
             else return datadir;
@@ -472,13 +472,13 @@ namespace HappyGenyuanImsactUpdate
 
         static FileInfo GetUpdatePakPath(string gamePath)
         {
-            Log.Info("Drag the update package here. " +
-                "It should be a zip file.", nameof(GetUpdatePakPath));
-            Log.Info("If it's under the game directory, you can just paste the name of zip file here.", nameof(GetUpdatePakPath));
+            Log.Info("请你粘贴更新包路径。" +
+                "它必须是一个zip压缩文件。", nameof(GetUpdatePakPath));
+            Log.Info("如果文件在游戏路径中，那么不需要输入完整的路径。", nameof(GetUpdatePakPath));
             string? pakPath = RemoveDoubleQuotes(Console.ReadLine());
             if (pakPath == null || pakPath == string.Empty)
             {
-                Log.Warn("Invaild update package!", nameof(GetUpdatePakPath));
+                Log.Warn("错误的更新包位置。", nameof(GetUpdatePakPath));
                 return GetUpdatePakPath(gamePath);
             }
 
@@ -508,7 +508,7 @@ namespace HappyGenyuanImsactUpdate
 
             if (!zipfile.Exists)
             {
-                Log.Warn("Invaild update package!", nameof(GetUpdatePakPath));
+                Log.Warn("错误的更新包位置。", nameof(GetUpdatePakPath));
                 return GetUpdatePakPath(gamePath);
             }
 
@@ -518,10 +518,10 @@ namespace HappyGenyuanImsactUpdate
         static int GetZipCount()
         {
             int rtn = 0;
-            Log.Info("Please type the count of zip file you have.", nameof(GetUpdatePakPath));
+            Log.Info("你有多少个更新包？", nameof(GetUpdatePakPath));
             if (!int.TryParse(Console.ReadLine(), out rtn))
             {
-                Log.Warn("Invaild input!", nameof(GetUpdatePakPath));
+                Log.Warn("错误的数字！", nameof(GetUpdatePakPath));
                 return GetZipCount();
             }
             else return rtn;
@@ -530,19 +530,19 @@ namespace HappyGenyuanImsactUpdate
         // 0 -> none, 1 -> basic check (file size), 2 -> full check (size + md5)
         static int AskForCheck()
         {
-            Log.Info("Do you want to have a check after updating?", nameof(AskForCheck));
-            Log.Info("If you don't want any check, type 0;", nameof(AskForCheck));
-            Log.Info("For a fast check (recommended, only compares file size, usually < 10s), type 1;", nameof(AskForCheck));
-            Log.Info("For a full check (scans files, takes a long time, usually > 5 minutes), type 2.", nameof(AskForCheck));
+            Log.Info("你想要在更新后进行文件校验吗？", nameof(AskForCheck));
+            Log.Info("不想，请输入：0;", nameof(AskForCheck));
+            Log.Info("[推荐]快速验证（只验证文件大小），请输入：1;", nameof(AskForCheck));
+            Log.Info("完整检查，请输入：2。", nameof(AskForCheck));
             int rtn = 0;
             if (!int.TryParse(Console.ReadLine(), out rtn))
             {
-                Log.Warn("Invaild input!", nameof(AskForCheck));
+                Log.Warn("错误的选择！", nameof(AskForCheck));
                 return AskForCheck();
             }
             else if (rtn < 0 || rtn > 2)
             {
-                Log.Warn("Invaild input!", nameof(AskForCheck));
+                Log.Warn("错误的选择！", nameof(AskForCheck));
                 return AskForCheck();
             }
             else return rtn;
@@ -555,12 +555,12 @@ namespace HappyGenyuanImsactUpdate
         {
             if (delete == null)
             {
-                Log.Info("The pre-download packages aren't needed any more.", nameof(DeleteZipFilesReq));
-                Log.Info("Do you want to delete them? Type 'y' to accept or 'n' to refuse.", nameof(DeleteZipFilesReq));
+                Log.Info("更新包一般而言不再需要。", nameof(DeleteZipFilesReq));
+                Log.Info("你需要删掉吗？输入‘y’删掉，‘n’不删掉。", nameof(DeleteZipFilesReq));
                 string? s = Console.ReadLine();
                 if (s == null)
                 {
-                    Log.Warn("Invaild input!", nameof(DeleteZipFilesReq));
+                    Log.Warn("错误的输入！", nameof(DeleteZipFilesReq));
                     DeleteZipFilesReq(zips);
                     return;
                 }
@@ -575,8 +575,8 @@ namespace HappyGenyuanImsactUpdate
                         catch (Exception ex)
                         {
                             Log.Warn(ex.ToString(), nameof(DeleteZipFilesReq));
-                            Log.Warn($"Deleting package: {zip} failed. " +
-                                $"You may close and delete it yourself.",
+                            Log.Warn($"删除文件: {zip} 失败。" +
+                                $"请自己尝试删除！",
                                 nameof(DeleteZipFilesReq));
                         }
                     }
@@ -587,7 +587,7 @@ namespace HappyGenyuanImsactUpdate
                 }
                 else
                 {
-                    Log.Warn("Invaild input!", nameof(DeleteZipFilesReq));
+                    Log.Warn("错误的输入！", nameof(DeleteZipFilesReq));
                     DeleteZipFilesReq(zips);
                     return;
                 }
@@ -603,8 +603,8 @@ namespace HappyGenyuanImsactUpdate
                     catch (Exception ex)
                     {
                         Log.Warn(ex.ToString(), nameof(DeleteZipFilesReq));
-                        Log.Warn($"Deleting package: {zip} failed. " +
-                            $"You may close and delete it yourself.",
+                        Log.Warn($"删除文件: {zip} 失败。 " +
+                            $"请自己尝试删除。",
                             nameof(DeleteZipFilesReq));
                     }
                 }

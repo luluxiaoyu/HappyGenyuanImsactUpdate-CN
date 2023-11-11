@@ -24,7 +24,7 @@ namespace HDiffPatchCreator
                 debug_LogWriter_AutoFlush: true));
 
             string? version = Assembly.GetExecutingAssembly().GetName().Version?.ToString(3);
-            Log.Info($"----------Happy hdiff creator (v{version ?? "<unknown>"})----------");
+            Log.Info($"----------原神/崩铁更新程序(v{version ?? "<unknown>"})----------");
             Helper.CheckForRunningInZipFile();
 
             Helper.CheckForTools();
